@@ -18,9 +18,9 @@ export default class CollectingStarsScene extends Scene {
 		this.load.image('star', 'images/star.png')
 		this.load.image('sky', 'images/sky.png')
 		this.load.image('bomb', 'images/bomb.png')
-		this.load.spritesheet('dude', 'images/dude.png', {
+		this.load.spritesheet('dude', 'images/hood.png', {
 			frameWidth: 32,
-			frameHeight: 48,
+			frameHeight: 32,
 		})
 	}
 
@@ -56,22 +56,22 @@ export default class CollectingStarsScene extends Scene {
 		})
 		this.cursor = this.input.keyboard.createCursorKeys()
 
-		this.anims.create({
-			key: 'left',
-			frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-			frameRate: 10,
-			repeat: -1,
-		})
+		// this.anims.create({
+		// 	key: 'left',
+		// 	frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+		// 	frameRate: 10,
+		// 	repeat: -1,
+		// })
 
 		this.anims.create({
 			key: 'turn',
-			frames: [{ key: 'dude', frame: 4 }],
+			frames: [{ key: 'dude', frame: 0 }],
 			frameRate: 20,
 		})
 
 		this.anims.create({
-			key: 'right',
-			frames: this.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+			key: 'walk',
+			frames: this.anims.generateFrameNumbers('dude', { start: 24, end: 31 }),
 			frameRate: 10,
 			repeat: -1,
 		})
@@ -93,10 +93,12 @@ export default class CollectingStarsScene extends Scene {
 	update() {
 		if (this.cursor.left.isDown) {
 			this.player.setVelocityX(-200)
-			this.player.anims.play('left', true)
+			this.player.anims.play('walk', true)
+			this.player.setFlipX(true)
 		} else if (this.cursor.right.isDown) {
 			this.player.setVelocityX(200)
-			this.player.anims.play('right', true)
+			this.player.anims.play('walk', true)
+			this.player.setFlipX(false)
 		} else {
 			this.player.setVelocity(0, 0)
 			this.player.anims.play('turn')
